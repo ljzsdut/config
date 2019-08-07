@@ -16,6 +16,7 @@ nnoremap <LEADER>r  :w<CR>:source $MYVIMRC<CR>
 
 " 修改Caps_Lock键,silent !CMD
 silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Escape'
+inoremap jj <Esc>
 " 修改Esc键
 "silent !xmodmap -e 'keycode 9 = Caps_Lock'
 " change word to uppercase  :gU<motion>
