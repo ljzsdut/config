@@ -617,6 +617,26 @@ ctrl+a  对选中的数字+1
 ctrl+x  对选中的数字-1
 
 
+# 更改i3status
+mkdir ~/.config/i3status
+cp /etc/i3status.conf ~/.config/i3status/config
+vim ~/.config/i3status/config
+改成
+tztime local {
+format = " %Y-%m-%d %H:%M:%S "
+}
+就能按照年月日显示时间格式了。
+如果要显示详细的i3status的资料：
+man i3status
+
+#更改conky
+/usr/share/conky/conky_maia    #桌面右侧的状态栏
+/usr/share/conky/conky1.10_shortcuts_maia    #桌面左侧的快捷键显示栏
+修改conky_maia支持中文
+font = 'WenQuanYi Micro Hei:size=8',
+或者
+font = 'WenQuanYi Zen Hei:size=8',
 
 
-
+参考：
+https://www.jianshu.com/p/cf14660d8af2
