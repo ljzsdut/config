@@ -18,6 +18,7 @@ nnoremap <LEADER>r  :w<CR>:source $MYVIMRC<CR>
 silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Escape'
 " 修改Esc键
 "silent !xmodmap -e 'keycode 9 = Caps_Lock'
+inoremap jj <Esc>
 " change word to uppercase  :gU<motion>
 inoremap <C-u> <Esc>gUiwea
 nnoremap <C-u> gUiw
@@ -26,6 +27,7 @@ nnoremap <C-u> gUiw
 nnoremap <LEADER>w  :w<CR>
 nnoremap <LEADER>q  :silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Caps_Lock'<CR>:q!<CR>
 nnoremap <LEADER>s  :silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Caps_Lock'<CR>:wq<CR>
+nnoremap s :w<CR>
 
 set number            "显示行号
 set norelativenumber  "是否使用相对行号
