@@ -88,7 +88,10 @@ mv 下载 Downloads
 mv 音乐 Musics
 mv 桌面 Desktop
 ```
-
+# 安装必备字体
+```bash
+sudo pacman -S ttf-font-awesome wqy-bitmapfont wqy-microhei  wqy-zenhei nerd-fonts-complete
+```
 # 关闭KDE Kwallet（电子钱包）
 
  用了kde以后，每次打开浏览器都会跳出电子钱包什么的，十分烦人，也可能是我自己不习惯
@@ -114,7 +117,7 @@ mv 桌面 Desktop
 安装fcitx小企鹅输入法基础库及其配置工具
 
 ```bash
-sudo pacman -S fcitx fcitx-configtool
+sudo pacman -S fcitx-im fcitx-configtool
 ```
 
 在 Fcitx 支持的拼音输入法中，内置拼音响应速度最快。Fcitx 同样支持流行的第三方拼音输入法以提供更好的整句输入效果.
@@ -122,6 +125,7 @@ sudo pacman -S fcitx fcitx-configtool
 可选安装第三方输入法，fcitx默认已有中文输入。 [其他输入法安装参考](https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#.E5.AE.89.E8.A3.85 )
 
 ```bash
+sudo pacman -S fcitx-googlepinyin
 sudo pacman -S fcitx-sogoupinyin fcitx-qt4  #可选1：搜狗拼音
 sudo pacman -S fcitx-sunpinyin    #可选2：sun拼音
 ```
@@ -134,6 +138,15 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=“@im=fcitx”
 ```
 
+```bash
+cat ~/.profile
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export EDITOR=/usr/bin/nano
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+# fix "xdg-open fork-bomb" export your preferred browser from here
+export BROWSER=/usr/bin/palemoon
+fcitx -rd &
+```
 注销用户重新登录或者手动启动fcitx: `fcitx -rd`。
 
 说明：要保证LC_CTYPE变量的值为“zh_CN.UTF-8”，否则无法切换出中文输入法。
@@ -430,11 +443,13 @@ pacman -Syy         #强制更新本地软件索引库
 pacman -Su          #更新所有软件
 pacman -Syu         #更新本地索引库，并更新软件所有软件或g指定软件
 pacman -Syyu        #强制更新本地索引库，并更新所有软件
-pacman -Ss xxx  	#查找给定信息打软件。支持正则表达式
+pacman -Syyu xxx    #强制更新本地索引库，并更新所有软件,然后安装xxx。
+pacman -Ss xxx  	#从远程库中查找给定信息的软件。支持正则表达式
 
 pacman -R vim  		#删除软件vim
+pacman -Rc vim  	#删除软件vim及依赖于vim的包
 pacman -Rs vim		#删除软件vim及其依赖包
-pacman -Rns vim 	#删除软件vim及其依赖包，同时删除vim打全局配置文件（不会个人配置文件.vimrc）
+pacman -Rns vim 	#删除软件vim及其依赖包（只被他依赖），-n同时删除vim的全局配置文件的备份.pacsave（不会个人配置文件.vimrc的备份）
 
 pacman -Q  			#查看本机安装所有打软件
 pacman -Qe 			#查看本机自己安装的软件，排除系统软件
@@ -490,6 +505,8 @@ pacman -Scc 清理所有的缓存文件。
 [用户文档中文](https://www.jianshu.com/p/b9b644cf528f)
 
 <https://www.jianshu.com/p/99e51eb15abc> 
+
+
 
 
 
@@ -640,3 +657,4 @@ font = 'WenQuanYi Zen Hei:size=8',
 
 参考：
 https://www.jianshu.com/p/cf14660d8af2
+https://www.cnblogs.com/vachester/p/5649813.html
