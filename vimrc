@@ -15,18 +15,20 @@ let mapleader=","     "设置vim的leader键，一般为逗号或空格
 nnoremap <LEADER>r  :w<CR>:source $MYVIMRC<CR>
 
 " 修改Caps_Lock键,silent !CMD
-silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Escape'
+"silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Escape'
 inoremap jj <Esc>
 " 修改Esc键
 "silent !xmodmap -e 'keycode 9 = Caps_Lock'
+inoremap jj <Esc>
 " change word to uppercase  :gU<motion>
 inoremap <C-u> <Esc>gUiwea
 nnoremap <C-u> gUiw
 
 " 保存、退出
-nnoremap <LEADER>w  :w<CR>
-nnoremap <LEADER>q  :silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Caps_Lock'<CR>:q!<CR>
-nnoremap <LEADER>s  :silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Caps_Lock'<CR>:wq<CR>
+"nnoremap <LEADER>w  :w<CR>
+"nnoremap <LEADER>q  :silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Caps_Lock'<CR>:q!<CR>
+"nnoremap <LEADER>s  :silent !xmodmap -e 'clear Lock' -e 'keycode 66 = Caps_Lock'<CR>:wq<CR>
+nnoremap s :w<CR>
 
 set number            "显示行号
 set norelativenumber  "是否使用相对行号
@@ -148,7 +150,7 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarOpenAutoClose' }
 Plug 'w0rp/ale'
 
 " Auto Complete
-"Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 
 " Undo Tree
 Plug 'mbbill/undotree/'
@@ -176,6 +178,7 @@ Plug 'vim-scripts/indentpython.vim'
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for' :['markdown', 'vim-plug'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }  "确保已经安装yarn工具，否则无法完成自动安装
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'vimwiki/vimwiki'
 
@@ -194,6 +197,12 @@ Plug 'scrooloose/nerdcommenter' " in <space>cc to comment a line
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
 Plug 'fadein/vim-FIGlet'
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
 call plug#end()
 
 " ===================================
@@ -293,7 +302,7 @@ let g:mkdp_refresh_slow = 0
 let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
 let g:mkdp_open_ip = ''
-let g:mkdp_browser = 'chromium'
+"let g:mkdp_browser = 'chromium'
 let g:mkdp_echo_preview_url = 0
 let g:mkdp_browserfunc = ''
 let g:mkdp_preview_options = {
@@ -309,6 +318,7 @@ let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
+
 
 nmap <F9> <Plug>MarkdownPreviewToggle
 
@@ -373,3 +383,15 @@ let g:SignatureMap = {
 " ===
 let g:undotree_DiffAutoOpen = 0
 map L :UndotreeToggle<CR>
+
+" ===
+" === Ultisnips
+" ===
+let g:tex_flavor = "latex"
+inoremap <c-n> <nop>
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-f>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/Ultisnips/', 'UltiSnips']
+silent! au BufEnter,BufRead,BufNewFile * silent! unmap <c-r>
