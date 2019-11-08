@@ -19,7 +19,6 @@ nnoremap <LEADER>r  :w<CR>:source $MYVIMRC<CR>
 inoremap jj <Esc>
 " 修改Esc键
 "silent !xmodmap -e 'keycode 9 = Caps_Lock'
-inoremap jj <Esc>
 " change word to uppercase  :gU<motion>
 inoremap <C-u> <Esc>gUiwea
 nnoremap <C-u> gUiw
@@ -87,32 +86,32 @@ set autochdir
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
-" 分屏
-nnoremap sh  :set nosplitright<CR>:vsplit<CR>   "向左分屏,即:vs
-nnoremap sl  :set splitright<CR>:vsplit<CR>     "向右分屏
-nnoremap sj  :set splitbelow<CR>:split<CR>      "向下分屏
-nnoremap sk  :set nosplitbelow<CR>:split<CR>    "向上分屏,即:sp
-" 垂直分屏与左右分屏的切换
-nnoremap ss <C-w>t<C-w>H    " 切换为水平分屏
-nnoremap sv <C-w>t<C-w>K    " 切换为垂直分屏
-" 切换分屏
-nnoremap <LEADER>h <C-w>h   "移动光标到左侧分屏;<C-w>表示ctrl+w
-nnoremap <LEADER>j <C-w>j
-nnoremap <LEADER>k <C-w>k
-nnoremap <LEADER>l <C-w>l
-" 移动光标到上一个vim窗(previous)
-nnoremap <LEADER>p <C-w>p
-inoremap <C-p>p <Esc><C-w>p
-"调整分屏的大小
-nnoremap <up> :res +5<CR>  
-nnoremap <down> :res -5<CR>
-nnoremap <left> :vertical resize-5<CR>
-nnoremap <right> :vertical resize+5<CR>
-
-" 标签页操作
-nnoremap te :tabe<CR>       "新建标签页
-nnoremap th :-tabnext<CR>   "移动到左标签页
-nnoremap tl :+tabnext<CR>   "移动到右标签页
+"" 分屏
+"nnoremap sh  :set nosplitright<CR>:vsplit<CR>   "向左分屏,即:vs
+"nnoremap sl  :set splitright<CR>:vsplit<CR>     "向右分屏
+"nnoremap sj  :set splitbelow<CR>:split<CR>      "向下分屏
+"nnoremap sk  :set nosplitbelow<CR>:split<CR>    "向上分屏,即:sp
+"" 垂直分屏与左右分屏的切换
+"nnoremap ss <C-w>t<C-w>H    " 切换为水平分屏
+"noremap sv <C-w>t<C-w>K    " 切换为垂直分屏
+"" 切换分屏
+"nnoremap <LEADER>h <C-w>h   "移动光标到左侧分屏;<C-w>表示ctrl+w
+"nnoremap <LEADER>j <C-w>j
+"nnoremap <LEADER>k <C-w>k
+"nnoremap <LEADER>l <C-w>l
+"" 移动光标到上一个vim窗(previous)
+"nnoremap <LEADER>p <C-w>p
+"inoremap <C-p>p <Esc><C-w>p
+""调整分屏的大小
+"nnoremap <up> :res +5<CR>  
+"nnoremap <down> :res -5<CR>
+"nnoremap <left> :vertical resize-5<CR>
+"nnoremap <right> :vertical resize+5<CR>
+"
+"" 标签页操作
+"nnoremap te :tabe<CR>       "新建标签页
+"nnoremap th :-tabnext<CR>   "移动到左标签页
+"nnoremap tl :+tabnext<CR>   "移动到右标签页
 
 
 " 替换占位符<++>
@@ -265,7 +264,7 @@ let g:NERDTreeIndicatorMapCustom = {
 " ===================================
 " = vim-easymotion
 " ===================================
-nmap ss <Plug>(asymotion-s2)
+nmap ss <Plug>(easymotion-s2)
 
 " ===================================
 " = You Complete ME
