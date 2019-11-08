@@ -440,14 +440,17 @@ https://www.bilibili.com/video/av40094127?from=search&seid=13229793831360516797
 pacman -S vim       #安装软件vim
 pacman -Sy          #更新本地软件索引库（可能不更新）
 pacman -Syy         #强制更新本地软件索引库
-pacman -Su          #更新所有软件
-pacman -Syu         #更新本地索引库，并更新软件所有软件或g指定软件
+pacman -Su          #更新所有软件(对整个系统进行更新)
+pacman -Syu         #更新本地索引库，并更新软件所有软件或指定软件
 pacman -Syyu        #强制更新本地索引库，并更新所有软件
 pacman -Syyu xxx    #强制更新本地索引库，并更新所有软件,然后安装xxx。
-pacman -Ss xxx  	#从远程库中查找给定信息的软件。支持正则表达式
+pacman -Ss xxx  	#(搜索包)从远程库中查找给定信息的软件。支持正则表达式
+pacman -Sv xxx      #在显示一些操作信息后执行安装。
+pacman -U xxx		#安装本地包，其扩展名为 pkg.tar.gz。
 
 pacman -R vim  		#删除软件vim
 pacman -Rc vim  	#删除软件vim及依赖于vim的包
+pacman -Rd vim      #在删除包时不检查依赖。
 pacman -Rs vim		#删除软件vim及其依赖包
 pacman -Rns vim 	#删除软件vim及其依赖包（只被他依赖），-n同时删除vim的全局配置文件的备份.pacsave（不会个人配置文件.vimrc的备份）
 
@@ -456,46 +459,17 @@ pacman -Qe 			#查看本机自己安装的软件，排除系统软件
 pacman -Qeq			#-q只显示软件名，不显示软件版本号
 pacman -Qs vim 		#查找本机软件中含有vim的软件
 pacman -Qdt			#不再被依赖的无用依赖包
+pacman -Ss 关键字 	  #这将搜索含关键字的包。
+pacman -Qi 包名 	   #查看有关包的信息。
+pacman -Ql 包名      #列出该包的文件。
 
 #删除无用的依赖
 pacman -Q $(pacman -Qdtq)
 
 
-
-
-Pacman 是一个命令行工具，这意味着当你执行下面的命令时，必须在终端或控制台中进行。
-
-1、更新系统
-
-在 Arch Linux 中，使用一条命令即可对整个系统进行更新：
-
-pacman -Syu
-
-如果你已经使用 pacman -Sy 将本地的包数据库与远程的仓库进行了同步，也可以只执行：
-
-pacman -Su
-
-2、安装包
-
-pacman -S 包名 例如，执行 pacman -S firefox 将安装 Firefox。你也可以同时安装多个包，只需以空格分隔包名即可。
-pacman -Sy 包名 与上面命令不同的是，该命令将在同步包数据库后再执行安装。
-pacman -Sv 包名 在显示一些操作信息后执行安装。
-pacman -U 安装本地包，其扩展名为 pkg.tar.gz。
-3、删除包
-
-pacman -R 包名 该命令将只删除包，不包含该包的依赖。
-pacman -Rs 包名 在删除包的同时，也将删除其依赖。
-pacman -Rd 包名 在删除包时不检查依赖。
-4、搜索包
-
-pacman -Ss 关键字 这将搜索含关键字的包。
-pacman -Qi 包名 查看有关包的信息。
-pacman -Ql 包名 列出该包的文件。
-5、其他用法
-
-pacman -Sw 包名 只下载包，不安装。
-pacman -Sc Pacman 下载的包文件位于 /var/cache/pacman/pkg/ 目录。该命令将清理未安装的包文件。
-pacman -Scc 清理所有的缓存文件。
+pacman -Sw 包名 		#只下载包，不安装。
+pacman -Sc 		#Pacman 下载的包文件位于 /var/cache/pacman/pkg/ 目录。该命令将清理未安装的包文件。
+pacman -Scc 	#清理所有的缓存文件。
 ```
 
 
@@ -513,7 +487,7 @@ pacman -Scc 清理所有的缓存文件。
 # 修改时间显示为英文格式：
 
 ```bash
- sudo localectl set-locale LC_TIME="en_US.UTF-8"
+sudo localectl set-locale LC_TIME="en_US.UTF-8"
 ```
 
 重启后生效。
@@ -537,6 +511,67 @@ env:
   #TERM: xterm-256color
   LC_CTYPE: en_US.UTF-8
 ```
+
+# tmux
+
+```bash
+#安装
+sudo pacman -Syy tmux
+
+#修改配置cat ～/.tmux.conf
+# Set new default prefix
+unbind C-b
+set-option -g prefix C-j
+
+# enable Mouse
+set-option -g -q mouse on
+
+# split pane
+unbind '"'
+unbind %
+bind h split-window -h
+bind v split-window -v
+
+# 开启vi默认快捷键
+set-window-option -g mode-keys vi
+
+# 开启窗口的UTF-8支持
+#set-window-option -g utf8 on
+```
+
+[使用文档](https://www.jianshu.com/p/b67567085856?utm_campaign=hugo&utm_medium=reader_share&utm_content=note&utm_source=qq)
+
+1. 创建session
+
+```bash
+# 创建一个session，session名称为0,再次创建的session名称为1,以此类推
+tmux
+
+# 创建一个指定名称的session
+tmux new -s <SESSION_NAME>
+```
+
+2. detach/attach会话，回到shell的终端环境（类似screen的作用）
+
+   通过 `tmux new -s` 命令创建一个tmux会话并进入该会话的，如果要退出这个会话环境回到终端环境(会话里面的程序不会退出在后台保持继续运行)。应该如何操作呢？当前我们在tmux的会话环境中，使用一个快捷键 `ctrl+b d` (按`ctrl+b` 之后再按一个字母`d`即可，字母d是detach的缩写)。
+
+```bash
+# tmux                                                                                 
+[detached (from session 0)]
+
+再次进入会话：tmux attach [-t SESSION_NAME]
+tmux a
+tmux a -t 0
+```
+
+3. `tmux ls` 终端环境查看会话列表
+
+```bash
+# tmux ls
+0: 1 windows (created Fri Nov  8 17:52:20 2019)
+```
+
+4. 其他分屏的操作
 
 # 键位修改
 

@@ -2,7 +2,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
-set $mod Mod1
+set $mod Mod4
 
 # set default desktop layout (default is tiling)
 # workspace_layout tabbed <stacking|tabbed>
@@ -290,8 +290,8 @@ exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id killall -q touchpad.sh;while pgrep -u $UID -x  touchpad.sh >/dev/null; do sleep 1; done ;if [[ -e ~/.config/i3/touchpad.sh ]];then /bin/bash ~/.config/i3/touchpad.sh;elif [[ -e ~/.i3/touchpad.sh ]];then /bin/bash ~/.i3/touchpad.sh ;fi &
-exec --no-startup-id variety
-exec --no-startup-id ~/.config/albert/albert_run
+exec_always --no-startup-id variety
+exec_always --no-startup-id ~/.config/albert/albert_run
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:

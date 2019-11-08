@@ -23,6 +23,10 @@ ln -s ${prefix_dir}/albert_run ~/.config/albert/albert_run
 [[ -e ~/.config/i3 ]] && mv -f ~/.config/i3{,.bak}
 ln -s ${prefix_dir}/i3 ~/.config/i3
 
+#tmux
+[[ -e ~/.tmux.conf ]] && mv -f ~/.tmux.conf{,.bak}
+ln -s ${prefix_dir}/tmux.conf ~/.tmux.conf
+
 ##compton,需要编译安装:https://github.com/ljzsdut/compton
 #[[ -e ~/.config/compton.conf ]] && mv -f ~/.config/compton.conf{,.bak}
 #ln -s ${prefix_dir}/compton.conf ~/.config/compton.conf
