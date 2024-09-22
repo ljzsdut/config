@@ -437,6 +437,37 @@ https://www.bilibili.com/video/av40094127?from=search&seid=13229793831360516797
 # pacman使用
 
 ```bash
+
+S - Sync  同步、安装
+
+-S [package]：安装包
+-Sy：download fresh package databases from the server（可能不是最新的）
+-Syy：force a refresh even if up to date
+-Su：upgrade installed packages
+-Syu：-Sy + -Su
+-Syyu：-Syy + -Su
+-Ss <regex>：search remote repositories for matching strings
+-Sc：remove old packages from cache directory (-cc for all)
+
+R - Remove 删除
+
+-R [package]：删除包
+-Rs [package]：remove unnecessary dependencies (-ss includes explicitly installed dependencies)
+-Rn [package]：remove configuration files（删除全局配置文件，不是个人的）
+-Rns [package]：-Rn + -Rs
+
+Q - Query 查询
+
+-Q：显示本地所有包
+-Qe：list packages explicitly installed（自己安装的软件）
+-Qq：show less information for query and search（不显示版本号）
+-Qeq：-Qe + -Qq
+-Qs <regex>：search locally-installed packages for matching strings
+-Qdt：显示不再被需要的依赖
+-Qu：list outdated packages
+sudo pacman -R $(pacman  -Qdtq)
+
+
 pacman -S vim       #安装软件vim
 pacman -Sy          #更新本地软件索引库（可能不更新）
 pacman -Syy         #强制更新本地软件索引库
